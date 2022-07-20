@@ -2,6 +2,7 @@
 import configparser
 import sys
 import os
+import hlpl_composer
 
 def get_hlpl_composer__version(case):
     config = configparser.ConfigParser()
@@ -12,11 +13,21 @@ def get_hlpl_composer__version(case):
        return config['hlpl_composer']['version']
     if case=='else':
        return config['hlpl_composer']['version']+'\n'+config['hlpl_composer']['author']+'\n'+config['hlpl_composer']['email']+'\n'+config['hlpl_composer']['url']+'\n'
-       
  
+def hlpl_get_name(st):
+    if '\\' in st:
+       return st.split('\\')[len(st.split('\\'))-1]   
+    if '/' in st:
+       return st.split('/')[len(st.split('/'))-1]   
+    if '\/' in st:
+       return st.split('\/')[len(st.split('\/'))-1] 
     
+       
 def main():
-    if 'version' in sys.argv:
+    st=hlpl_get_name(sys.argv[0])
+    if st=='version':
         print('\n'+get_hlpl_composer__version('version'))
+    if st=='hlpl_composer':
+       hlpl_composer.main()
     else:
         print('\n'+get_hlpl_composer__version('else')+'\n'+'hlpl_composer under developement, it will be released next versions of HLPL')

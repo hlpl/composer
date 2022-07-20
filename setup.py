@@ -17,7 +17,14 @@ if sys.version_info[0] < 3:
             platform.python_version()
         )
     )
-    
+ 
+REQUIREMENTS = []
+
+"""
+with open('requirements.txt') as requirements:
+    for requirement in requirements.readlines():
+        REQUIREMENTS.append(requirement)"""
+            
 config = configparser.ConfigParser()
 current_directory = os.path.dirname(os.path.abspath(__file__))
 config_file_path = os.path.join(current_directory, 'hlpl_composer/setup.cfg')
@@ -47,17 +54,17 @@ setup (name='hlpl_composer', version=VERSION,
       url=URL,
       download_url=URL+'/download/',
       project_urls=projects_urls,      
-      python_requires='>=3, <=3.9',
+      python_requires='>=3, <3.9',
       license='MIT',
       platform="OS independent",
       keywords=['hlpl_composer', 'hlpl composer', 'hlpl-composer', 'text composer', 'text analyser', 'hlpl'],
       package_dir={'hlpl_composer': 'hlpl_composer',},
-      packages=['hlpl_composer',],
-      install_requires=[],         
+      packages=['hlpl_composer'],
+      install_requires=REQUIREMENTS,         
       include_package_data=True,
       entry_points ={
         'console_scripts': [
-                'hlpl_composer = hlpl_composer.__main__:main',
+                'hlpl_composer = hlpl_composer.hlpl_composer:main',
             ]},   
       classifiers=[
           'Framework :: Robot Framework',
